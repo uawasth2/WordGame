@@ -11,8 +11,8 @@ public class Being {
 	public Being(String name, int lvl) {
 		this.name = name;
 		this.lvl = lvl;
-		hp = lvl * 10;
-		strength = lvl;
+		hp = (int)(Math.ceil((double)lvl/ 5) * 100);
+		strength = lvl * 7 + 5;
 		defense = lvl;
 		crit = lvl * 0.01;
 		counter = lvl/5 + 3;
@@ -75,4 +75,17 @@ public class Being {
 		this.lvl = lvl;
 	}
 	
+	public int damage(Being enemy) {
+		int enemyStrength = enemy.getStrength();
+		double enemyCrit = enemy.getLvl() * 0.03;
+		int prevHp = this.getHp();
+		if (Math.random() < enemyCrit) {
+			this.setHp(this.getHp() - enemyStrength * 2);
+			return prevHp - this.getHp();
+		} else {
+			this.setHp(this.getHp() - enemyStrength);
+			return prevHp - this.getHp();
+		}
+		
+	}
 }
